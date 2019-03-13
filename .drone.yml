@@ -1,7 +1,7 @@
 image: scrapinghub
 
 script:
-  - build_docker_image --build-arg BASE_IMAGE=erlang:20.3.8.20-slim --build-arg DISABLE_SYSLOG=1 --build-arg=DISABLE_SSH=0 --rm image  # SSH is needed to run test
+  - build_docker_image --build-arg BASE_IMAGE=elixir:1.6.6-slim --build-arg DISABLE_SYSLOG=1 --build-arg=DISABLE_SSH=0 --rm image  # SSH is needed to run test
   - |
     set -ex
     NAME=${APPIMAGE/:*/} \
