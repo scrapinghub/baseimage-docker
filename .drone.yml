@@ -1,0 +1,20 @@
+image: scrapinghub
+
+script:
+  - |
+    set -ex
+    BASE_IMAGE=erlang:20.3.8.20-slim \
+    NAME=${APPIMAGE/:*/} \
+    VERSION=${APPIMAGE/*:/} \
+    make build test
+  - |
+    set -ex
+    git_tag_docker_image() {
+        local tags=$(git tag -l --points-at $DRONE_COMMIT) tag
+        for tag in $tags; do
+            docker tag $APPIMAGE i.scrapinghub.com/$APPNAME/$DRONE_BRANCH:$tag
+        done
+    }
+    git_tag_docker_image
+  - push_docker_image
+
