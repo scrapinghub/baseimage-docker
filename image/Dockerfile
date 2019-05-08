@@ -4,6 +4,10 @@ MAINTAINER Phusion <info@phusion.nl>
 
 COPY . /bd_build
 
+ARG DISABLE_SYSLOG=0
+ARG DISABLE_SSH=0
+ARG DISABLE_CRON=0
+
 RUN /bd_build/prepare.sh && \
 	/bd_build/system_services.sh && \
 	/bd_build/utilities.sh && \

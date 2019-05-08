@@ -1,20 +1,11 @@
 image: scrapinghub
 
 script:
+  - build_docker_image --build-arg BASE_IMAGE=erlang:20.3.8.20-slim --build-arg DISABLE_SYSLOG=1 --build-arg=DISABLE_SSH=0 -rm image  # SSH is needed to run test
   - |
     set -ex
-    BASE_IMAGE=erlang:20.3.8.20-slim \
     NAME=${APPIMAGE/:*/} \
     VERSION=${APPIMAGE/*:/} \
-    make build test
-  - |
-    set -ex
-    git_tag_docker_image() {
-        local tags=$(git tag -l --points-at $DRONE_COMMIT) tag
-        for tag in $tags; do
-            docker tag $APPIMAGE i.scrapinghub.com/$APPNAME/$DRONE_BRANCH:$tag
-        done
-    }
-    git_tag_docker_image
+    make test
   - push_docker_image
 
