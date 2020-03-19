@@ -3,7 +3,7 @@ image: scrapinghub
 script:
   - |
     # SSH is needed to run test
-    BASEI=i.scrapinghub.com/crawlera/docker-erlang-otp/elixir/keepcase-otp22:6ebc32e-slim
+    BASEI=i.scrapinghub.com/crawlera/docker-erlang-otp/elixir/otp23:7a265a2-slim
     build_docker_image \
       --build-arg BASE_IMAGE=$BASEI\
       --build-arg DISABLE_SYSLOG=1 \
